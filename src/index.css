@@ -1,0 +1,141 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Nunito', ui-rounded, system-ui, sans-serif;
+
+  --color-cream: #fbf7f1;
+  --color-paper: #ffffff;
+  --color-ink: #1f2140;
+  --color-ink-soft: #5b5f7e;
+  --color-line: #ece6dc;
+
+  --color-bleu: #3b4cca;
+  --color-bleu-deep: #2a2f9e;
+  --color-bleu-soft: #e8ebff;
+  --color-rouge: #ff5d73;
+  --color-rouge-soft: #ffe6ea;
+  --color-soleil: #ffc94d;
+  --color-soleil-soft: #fff4d6;
+  --color-menthe: #22b59a;
+  --color-menthe-soft: #dcf7f0;
+  --color-lavande: #8b6cf0;
+  --color-lavande-soft: #efe9ff;
+
+  --color-masc: #3d7bf5;
+  --color-fem: #f2557a;
+  --color-plur: #9a5cf0;
+
+  --shadow-card: 0 1px 2px rgb(31 33 64 / 0.04), 0 8px 24px -12px rgb(31 33 64 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(31 33 64 / 0.06), 0 18px 40px -16px rgb(31 33 64 / 0.28);
+}
+
+html,
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-image:
+    radial-gradient(circle at 8% -5%, rgb(59 76 202 / 0.08), transparent 38%),
+    radial-gradient(circle at 100% 0%, rgb(255 93 115 / 0.08), transparent 32%);
+  background-attachment: fixed;
+  min-height: 100dvh;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+button {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.card {
+  background: var(--color-paper);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgb(236 230 220 / 0.7);
+}
+
+.lift {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+}
+.lift:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* Theme gradients */
+.hue-sky { background: linear-gradient(135deg, #5aa9ff, #3b4cca); }
+.hue-rose { background: linear-gradient(135deg, #ff8fa3, #f2557a); }
+.hue-violet { background: linear-gradient(135deg, #b39bff, #7a55e8); }
+.hue-amber { background: linear-gradient(135deg, #ffd36b, #ff9f43); }
+.hue-teal { background: linear-gradient(135deg, #4fe0c3, #169e8a); }
+.hue-orange { background: linear-gradient(135deg, #ffb26b, #ff6b4a); }
+.hue-pink { background: linear-gradient(135deg, #ff9ad5, #d34fa0); }
+.hue-indigo { background: linear-gradient(135deg, #7d8bff, #3a2fa8); }
+.hue-green { background: linear-gradient(135deg, #8ee07a, #2e9f5b); }
+
+.tri {
+  background: linear-gradient(90deg, #3b4cca 0 33.3%, #ffffff 33.3% 66.6%, #ff5d73 66.6%);
+}
+
+/* Flashcard flip */
+.flip { perspective: 1200px; }
+.flip-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+.flip-inner.flipped { transform: rotateY(180deg); }
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back { transform: rotateY(180deg); }
+
+/* Mic pulse */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgb(255 93 115 / 0.5); }
+  100% { box-shadow: 0 0 0 22px rgb(255 93 115 / 0); }
+}
+.mic-live { animation: pulse-ring 1.2s ease-out infinite; }
+
+@keyframes wiggle {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+.wiggle { animation: wiggle 0.4s ease; }
+
+.prose-lesson p { margin: 0.6rem 0; line-height: 1.65; }
+.prose-lesson strong { color: var(--color-bleu-deep); font-weight: 800; }
+
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { scrollbar-width: none; }
+
+.pb-safe { padding-bottom: max(env(safe-area-inset-bottom), 0.5rem); }
+
+@media print {
+  body { background: white !important; }
+  .no-print { display: none !important; }
+  .card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+  main { padding: 0 !important; margin: 0 !important; }
+}
